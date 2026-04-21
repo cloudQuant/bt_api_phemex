@@ -1,0 +1,13 @@
+"""Tests for exchange_registers/register_phemex.py."""
+
+from __future__ import annotations
+
+from bt_api_phemex.registry_registration import register_phemex
+
+
+class TestRegisterPhemex:
+    """Tests for Phemex registration module."""
+
+    def test_module_imports(self):
+        """Test module can be imported."""
+        assert register_phemex is not None
