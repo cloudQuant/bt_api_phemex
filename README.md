@@ -1,14 +1,29 @@
-# bt_api_phemex
+# PHEMEX
 
-Phemex exchange package for `bt_api`, supporting Spot trading.
+Exchange plugin for bt_api framework.
 
-## Features
+[![PyPI Version](https://img.shields.io/pypi/v/bt_api_phemex.svg)](https://pypi.org/project/bt_api_phemex/)
+[![Python Versions](https://img.shields.io/pypi/pyversions/bt_api_phemex.svg)](https://pypi.org/project/bt_api_phemex/)
+[![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![CI](https://github.com/cloudQuant/bt_api_phemex/actions/workflows/ci.yml/badge.svg)](https://github.com/cloudQuant/bt_api_phemex/actions)
+[![Docs](https://readthedocs.org/projects/bt-api-phemex/badge/?version=latest)](https://bt-api-phemex.readthedocs.io/)
 
-- **Spot Trading**: Full REST API support for account, orders, market data
-- **HMAC SHA256 Authentication**: Secure API key handling with expiry-based signatures
-- **Hardcoded Configuration**: No YAML dependency — all exchange paths are defined in code
+---
 
-## Installation
+## English | [中文](#中文)
+
+### Overview
+
+This package provides **Phemex exchange plugin for bt_api** for the [bt_api](https://github.com/cloudQuant/bt_api_py) framework. It offers a unified interface for interacting with **PHEMEX** exchange.
+
+### Features
+
+- Exchange integration with bt_api
+- REST API support
+- Market data access
+- Basic trading operations
+
+### Installation
 
 ```bash
 pip install bt_api_phemex
@@ -17,68 +32,158 @@ pip install bt_api_phemex
 Or install from source:
 
 ```bash
-cd packages/bt_api_phemex
+git clone https://github.com/cloudQuant/bt_api_phemex
+cd bt_api_phemex
 pip install -e .
 ```
 
-## Quick Usage
+### Quick Start
 
 ```python
-from bt_api_py import BtApi
+from bt_api_phemex import PhemexApi
 
-api = BtApi(
-    exchange_kwargs={
-        "PHEMEX___SPOT": {
-            "api_key": "your_api_key",
-            "api_secret": "your_secret",
-        }
-    }
-)
+# Initialize
+feed = PhemexApi(api_key="your_key", secret="your_secret")
 
-ticker = api.get_tick("PHEMEX___SPOT", "BTCUSDT")
+# Get ticker data
+ticker = feed.get_ticker("BTCUSDT")
 print(ticker)
 ```
 
-## Architecture
+### Supported Operations
+
+| Operation | Status |
+|-----------|--------|
+| Ticker | ✅ |
+| OrderBook | ✅ |
+| Trades | ✅ |
+| Bars/Klines | ✅ |
+| Orders | ✅ |
+| Balances | ✅ |
+| Positions | ✅ |
+
+### Online Documentation
+
+| Resource | Link |
+|----------|------|
+| English Docs | https://bt-api-phemex.readthedocs.io/ |
+| Chinese Docs | https://bt-api-phemex.readthedocs.io/zh/latest/ |
+| GitHub Repository | https://github.com/cloudQuant/bt_api_phemex |
+| Issue Tracker | https://github.com/cloudQuant/bt_api_phemex/issues |
+
+### Requirements
+
+- Python 3.9+
+- bt_api_base >= 0.15
+
+### Architecture
 
 ```
 bt_api_phemex/
-├── __init__.py
-├── exchange_data/
-│   └── __init__.py          # PhemexExchangeData, PhemexExchangeDataSpot
-├── errors/
-│   ├── __init__.py          # PhemexErrorTranslator (re-export)
-│   └── phemex_translator.py # Error code mapping extending ErrorTranslator
-├── tickers/
-│   ├── __init__.py
-│   └── phemex_ticker.py     # PhemexRequestTickerData
-├── feeds/
-│   └── live_phemex/
-│       ├── __init__.py
-│       ├── request_base.py   # PhemexRequestData (HMAC auth base)
-│       └── spot.py           # PhemexRequestDataSpot
-├── registry_registration.py  # Auto-registers with ExchangeRegistry
-└── plugin.py                  # Plugin entrypoint for unified loading
+├── src/bt_api_phemex/     # Source code
+│   ├── containers/     # Data containers
+│   ├── feeds/          # API feeds
+│   ├── gateway/       # Gateway adapter
+│   └── plugin.py      # Plugin registration
+├── tests/             # Unit tests
+└── docs/             # Documentation
 ```
 
-## Dependencies
+### License
 
-- `bt_api_base>=0.15,<1.0`
+MIT License - see [LICENSE](LICENSE) for details.
+
+### Support
+
+- Report bugs via [GitHub Issues](https://github.com/cloudQuant/bt_api_phemex/issues)
+- Email: yunjinqi@gmail.com
+
+---
+
+## 中文
+
+### 概述
+
+本包为 [bt_api](https://github.com/cloudQuant/bt_api_py) 框架提供 **Phemex exchange plugin for bt_api**。它提供了与 **PHEMEX** 交易所交互的统一接口。
+
+### 功能特点
+
+- bt_api交易所集成
+- REST API支持
+- 市场数据访问
+- 基本交易操作
+
+### 安装
+
+```bash
+pip install bt_api_phemex
+```
+
+或从源码安装：
+
+```bash
+git clone https://github.com/cloudQuant/bt_api_phemex
+cd bt_api_phemex
+pip install -e .
+```
+
+### 快速开始
+
+```python
+from bt_api_phemex import PhemexApi
+
+# 初始化
+feed = PhemexApi(api_key="your_key", secret="your_secret")
+
+# 获取行情数据
+ticker = feed.get_ticker("BTCUSDT")
+print(ticker)
+```
+
+### 支持的操作
+
+| 操作 | 状态 |
+|------|------|
+| Ticker | ✅ |
+| OrderBook | ✅ |
+| Trades | ✅ |
+| Bars/Klines | ✅ |
+| Orders | ✅ |
+| Balances | ✅ |
+| Positions | ✅ |
+
+### 在线文档
+
+| 资源 | 链接 |
+|------|------|
+| 英文文档 | https://bt-api-phemex.readthedocs.io/ |
+| 中文文档 | https://bt-api-phemex.readthedocs.io/zh/latest/ |
+| GitHub 仓库 | https://github.com/cloudQuant/bt_api_phemex |
+| 问题反馈 | https://github.com/cloudQuant/bt_api_phemex/issues |
+
+### 系统要求
+
 - Python 3.9+
+- bt_api_base >= 0.15
 
-## Supported Endpoints
+### 架构
 
-| Method | Description |
-|--------|-------------|
-| `get_server_time` | Server time |
-| `get_exchange_info` | Exchange symbols |
-| `get_tick` / `get_ticker` | Query ticker data |
-| `get_depth` | Order book depth |
-| `get_kline` | K-line/candlestick data |
-| `get_trade_history` | Recent trades |
-| `get_balance` | Account balances |
-| `get_account` | Account info |
-| `make_order` | Place order |
-| `cancel_order` | Cancel order |
-| `query_order` | Query order status |
-| `get_open_orders` | Get open orders |
+```
+bt_api_phemex/
+├── src/bt_api_phemex/     # 源代码
+│   ├── containers/     # 数据容器
+│   ├── feeds/          # API 源
+│   ├── gateway/        # 网关适配器
+│   └── plugin.py       # 插件注册
+├── tests/             # 单元测试
+└── docs/             # 文档
+```
+
+### 许可证
+
+MIT 许可证 - 详见 [LICENSE](LICENSE)。
+
+### 技术支持
+
+- 通过 [GitHub Issues](https://github.com/cloudQuant/bt_api_phemex/issues) 反馈问题
+- 邮箱: yunjinqi@gmail.com
