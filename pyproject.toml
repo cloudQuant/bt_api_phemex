@@ -5,31 +5,112 @@ build-backend = "hatchling.build"
 [project]
 name = "bt_api_phemex"
 version = "0.15.0"
-description = "Phemex exchange plugin for bt_api"
+description = "Phemex exchange plugin for bt_api framework - Cryptocurrency derivatives exchange"
 readme = "README.md"
 requires-python = ">=3.9"
-license = "MIT"
+license = { text = "MIT" }
 authors = [
-    { name = "cloudQuant", email = "yunjinqi@gmail.com" },
+    { name = "cloudQuant", email = "yunjinqi@gmail.com" }
 ]
-keywords = ["bt_api", "phemex", "exchange", "trading", "api"]
+keywords = [
+    "bt_api",
+    "phemex",
+    "cryptocurrency",
+    "exchange",
+    "trading",
+    "derivatives",
+    "perpetual",
+    "algorithmic-trading",
+    "crypto"
+]
 classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Financial and Insurance Industry",
     "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
     "Programming Language :: Python :: 3.14",
+    "Topic :: Office/Business :: Financial :: Investment",
+    "Topic :: Software Development :: Libraries :: Python Modules",
 ]
 dependencies = [
-    "bt_api_base>=0.15,<1.0",
+    "bt_api_base>=0.15",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "pytest-asyncio>=0.21",
+    "pytest-cov>=4.0",
+    "ruff>=0.1.0",
+    "mypy>=1.0",
 ]
 
 [project.urls]
-Homepage = "https://github.com/cloudQuant/bt_api"
-Documentation = "https://cloudquant.github.io/bt_api/"
-Repository = "https://github.com/cloudQuant/bt_api"
+Homepage = "https://github.com/cloudQuant/bt_api_phemex"
+Repository = "https://github.com/cloudQuant/bt_api_phemex"
+Documentation = "https://bt-api-phemex.readthedocs.io/"
+Issues = "https://github.com/cloudQuant/bt_api_phemex/issues"
+Changelog = "https://github.com/cloudQuant/bt_api_phemex/blob/master/CHANGELOG.md"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/bt_api_phemex"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py39"
+
+[tool.ruff.lint]
+select = [
+    "E",
+    "F",
+    "W",
+    "I",
+    "UP",
+    "B",
+    "C4",
+    "T20",
+    "UP",
+    "YTT",
+    "ANN",
+    "ASYNC",
+    "BLE",
+    "COM",
+    "DTZ",
+    "EM",
+    "ISC",
+    "ICN",
+    "G",
+    "PIE",
+    "T10",
+    "DJ",
+    "E501",
+    "E711",
+    "E713",
+    "E714",
+    "E721",
+    "E722",
+    "E731",
+    "W291",
+    "W292",
+    "W293",
+    "W504",
+]
+ignore = [
+    "E501",
+    "E731",
+]
+
+[tool.mypy]
+python_version = "3.9"
+strict = false
+ignore_missing_imports = true
+warn_unused_configs = true
+warn_redundant_casts = true
+warn_unused_ignores = true
